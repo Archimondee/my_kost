@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet, Alert} from 'react-native';
+import {Text, View, StyleSheet, Alert, Image} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Form, Item, Label, Input} from 'native-base';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import Login from '../../api/Auth/Login';
 import AsyncStorage from '@react-native-community/async-storage';
-
+import {setItem as setLocal, getItem} from '../../utils/localStorage';
 interface LoginScreenProps {}
 
 const LoginScreen = (props: LoginScreenProps) => {
@@ -29,14 +29,19 @@ const LoginScreen = (props: LoginScreenProps) => {
         console.log(values.code);
         if (values.code == 200) {
           // console.log(values.code);
-          AsyncStorage.setItem('user', JSON.stringify(values.data)).then(
-            (value) => {
-              Alert.alert('Login');
-              navigation.navigate('Home');
-            },
-          );
+          //console.log(values.data);
+          setLocal('user', values.data);
+          Alert.alert('Login');
+          navigation.navigate('Home');
           setButtonState(false);
-          //useButtonState(false);
+          // AsyncStorage.setItem('user', JSON.stringify(values.data)).then(
+          //   (value) => {
+          //     console.log(value);
+          //     Alert.alert('Login');
+          //     setButtonState(false);
+          //     navigation.navigate('Home');
+          //   },
+          // );
         } else {
           setButtonState(false);
           Alert.alert('Username / password salah');
@@ -48,10 +53,13 @@ const LoginScreen = (props: LoginScreenProps) => {
     }
   };
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: 'white'}}>
       <View
         style={{alignContent: 'center', alignItems: 'center', marginTop: 60}}>
-        <View style={{height: 150, width: 150, backgroundColor: 'red'}} />
+        <Image
+          source={require('../../assets/home-logo.jpg')}
+          style={{height: 150, width: 150}}
+        />
         <View style={{marginVertical: 20}}>
           <Text style={{fontSize: 25, fontWeight: 'bold'}}>My Kost App</Text>
         </View>

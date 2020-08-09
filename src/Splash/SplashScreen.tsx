@@ -6,8 +6,8 @@ import CheckUser from '../api/Auth/CheckUser';
 
 interface SplashScreenProps {}
 
-const SplashScreen = (props: SplashScreenProps) => {
-  const navigation = useNavigation();
+const SplashScreen = ({navigation, route}: any) => {
+  //const navigasi = useNavigation();
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       checkLogin();
@@ -16,10 +16,11 @@ const SplashScreen = (props: SplashScreenProps) => {
     return unsubscribe;
   }, [navigation]);
   const checkLogin = () => {
-    //console.log('Jalanan');
+    console.log('Jalanan');
+    AsyncStorage.clear();
     AsyncStorage.getItem('user').then((value: any) => {
       const data = JSON.parse(value);
-      //console.log(data);
+      console.log('splash', data);
 
       if (data !== null) {
         //console.log(data[0].username);

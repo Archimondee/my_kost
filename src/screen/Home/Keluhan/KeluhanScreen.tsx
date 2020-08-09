@@ -85,13 +85,11 @@ const KeluhanScreen = (props: KeluhanScreenProps) => {
                     </DataTable.Cell> */}
                     <View style={{flex: 0.8, justifyContent: 'center'}}>
                       <TouchableOpacity
-                        // onPress={() =>
-                        //   navigation.navigate('UploadScreen', {
-                        //     no_pesanan: item.id_pemesanan,
-                        //     jumlah_bayar: item.harga_bulanan,
-                        //     id_kost: item.id_kost,
-                        //   })
-                        // }
+                        onPress={() =>
+                          navigation.navigate('LihatKeluhanScreen', {
+                            id_keluhan: item.id_keluhan,
+                          })
+                        }
                         style={{
                           backgroundColor: '#00AA13',
                           paddingVertical: 5,

@@ -20,7 +20,7 @@ const HomeScreen = (props: HomeScreenProps) => {
     const unsubscribe = navigation.addListener('focus', () => {
       AsyncStorage.getItem('user').then((value: any) => {
         const data = JSON.parse(value);
-        //console.log(data[0].id_user);
+        console.log(data[0].id_user);
         getUser(data[0].id_user);
         setIdUser(data[0].id_user);
         setPhoto(data[0].img);
@@ -39,6 +39,10 @@ const HomeScreen = (props: HomeScreenProps) => {
         //setNoKost(values.data[0].no_kamar);
       }
     });
+  };
+  const logout = () => {
+    AsyncStorage.clear();
+    navigation.navigate('Auth');
   };
   return (
     <View style={styles.container}>
@@ -107,7 +111,7 @@ const HomeScreen = (props: HomeScreenProps) => {
         </View>
         <View style={{flex: 1}}>
           <TouchableOpacity
-            onPress={() => AsyncStorage.clear()}
+            onPress={logout}
             style={{
               backgroundColor: '#00ae3c',
               marginRight: 10,
